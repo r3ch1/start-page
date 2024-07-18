@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -14,7 +12,7 @@ const App = () => {
     <div className="App container-fluid">
       <div className="container-fluid">
         <div className="row justify-content-center">
-          <div className="col-3">
+          <div className="col-md-3 col-xs-12">
             <form action="https://duckduckgo.com/" method="get" className="form-search">
               <InputGroup className="mb-3">
                 <InputGroup.Text>
@@ -38,7 +36,7 @@ const App = () => {
       </div>
       <div className="container-fluid mt-5">
         <div className="row">
-          <div className="col">
+          <div className="col-xs-12 col-md-4">
             <Card>
               <Card.Header style={{ textAlign: 'left' }}>Featured</Card.Header>
               <Card.Body>
@@ -48,8 +46,8 @@ const App = () => {
               </Card.Body>
             </Card>
           </div>
-          <div className="col">a</div>
-          <div className="col">
+          <div className="col-xs-12 col-md-4">a</div>
+          <div className="col-xs-12 col-md-4">
             <Card>
               <Card.Header style={{ textAlign: 'left' }}>Clima</Card.Header>
               <Card.Body>
