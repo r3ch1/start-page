@@ -19,6 +19,7 @@ const Weather = () => {
       return null;
     }
     if (!Object.values(item.value).length) {
+      console.log('Vazio');
       localStorage.removeItem(key);
       return null;
     }
@@ -61,14 +62,14 @@ const Weather = () => {
         result.list = groupedByWeatherData;
         setWeatherData(result);
         const expiry = new Date().getTime() + 4000 * 60 * 60;
-        localStorage.setItem('weatherData', JSON.stringify({ value: weatherData, expiry }));
+        localStorage.setItem('weatherData', JSON.stringify({ value: result, expiry }));
         setLoading(false);
       });
   };
 
   useEffect(() => {
     loadWeather();
-  }, []);
+  }, [lat, long]);
   return !loading ? (
     <>
       <div className="row weather">

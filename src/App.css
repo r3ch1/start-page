@@ -14,6 +14,10 @@
   pointer-events: none;
 }
 
+.card {
+  margin-bottom: 20px;
+}
+
 .text-small {
   font-size: 12px;
 }
@@ -28,6 +32,32 @@
 
 .weather img {
   width: 60px;
+}
+
+.links ul {
+  display: table;
+}
+
+.links li {
+  display: inline-table;
+  list-style: none;
+  width: 60px;
+  overflow-x: hidden;
+  margin: 10px 5px;
+}
+
+.links li a {
+  text-decoration: none;
+}
+
+.links li a i {
+  display: block;
+}
+
+.links li a span {
+  display: block;
+  margin-top: 15px;
+  color: rgb(33, 37, 41);
 }
 
 @media (prefers-reduced-motion: no-preference) {
