@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack';
 
 const ZombicideCompanion = () => {

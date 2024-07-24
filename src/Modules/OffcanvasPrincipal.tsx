@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ZombicideCompanion from './ZombicideCompanion';
 
@@ -13,7 +12,6 @@ const OffcanvasPrincipal = ({
   toogle?: any;
   body: string;
 }) => {
-  const [show, setShow] = useState(isOpen);
   const routes = [{ path: '', name: 'zombicide', module: <ZombicideCompanion /> }];
 
   const getBody = () => {
