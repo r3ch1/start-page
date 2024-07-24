@@ -43,6 +43,11 @@ const Links = () => {
       text: 'Zombicide BP Chars',
       url: 'https://docs.google.com/spreadsheets/d/1C1RhEnbAiof8BLyfjYAW_lSuylr4Fa3rL3bPe5BaCug/htmlview',
     },
+    {
+      icon: 'fa-brands fa-bootstrap',
+      text: 'React Bootstrap',
+      url: 'https://react-bootstrap.github.io/docs',
+    },
   ];
   return (
     <div className="row">

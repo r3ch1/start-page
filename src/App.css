@@ -1,8 +1,16 @@
 .App {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   text-align: center;
-  color: white;
+  /* color: white; */
   min-height: 100vh;
+}
+
+.float-right {
+  float: right;
+}
+
+.more-info {
+  width: 40% !important;
 }
 
 .form-search {
@@ -57,7 +65,21 @@
 .links li a span {
   display: block;
   margin-top: 15px;
-  color: rgb(33, 37, 41);
+  color: var(--bs-body-color);
+  /* color: rgb(33, 37, 41); */
+}
+
+.btn-toogle {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+
+  justify-content: center;
+  transition: background var(--ifm-transition-fast);
+}
+
+.btn-toogle:hover {
+  background: var(--ifm-color-emphasis-500);
 }
 
 @media (prefers-reduced-motion: no-preference) {
