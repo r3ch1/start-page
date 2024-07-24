@@ -1,20 +1,26 @@
 .App {
   /* background-color: #282c34; */
   text-align: center;
-  /* color: white; */
+
   min-height: 100vh;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 .float-right {
   float: right;
 }
 
-.more-info {
-  width: 40% !important;
+@media (min-width: 768px) {
+  .more-info {
+    width: 40% !important;
+  }
 }
 
 .form-search {
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 .App-logo {
