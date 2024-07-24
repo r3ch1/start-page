@@ -78,7 +78,7 @@ const App = () => {
                 </InputGroup.Text>
                 <Form.Control autoFocus name="q" placeholder="DuckDuckGo" />
                 <Button>
-                  <FontAwesomeIcon icon={faSearch} />
+                  <i className="fa-solid fa-search" />
                 </Button>
               </InputGroup>
             </form>
@@ -109,7 +109,7 @@ const App = () => {
                 </Card.Text>
               </Card.Body>
               <Card.Footer>
-                <Button variant="primary" onClick={() => toogleCanva('zombicide')} className="mt-2" size="sm">
+                <Button variant="primary" onClick={() => toogleCanva('zombicide')} size="sm" className="w-100">
                   <i className="fa-solid fa-ellipsis"></i>
                 </Button>
               </Card.Footer>
