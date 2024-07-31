@@ -89,7 +89,7 @@ const EscalaV2Fintools = () => {
     const userIndex = dataFull[0].indexOf(selectedUser.name);
     const presencialInWeek: any[] = [];
     dataFull.forEach((item: any) => {
-      if (item.length >= userIndex && item.length > 1 && item[userIndex].toLocaleLowerCase() === 'x') {
+      if (item.length > userIndex && item.length > 1 && item[userIndex].toLocaleLowerCase() === 'x') {
         presencialInWeek.push({
           date: moment(item[0], 'DD/M').format('YYYY-MM-DD'),
           isOffice: true,
