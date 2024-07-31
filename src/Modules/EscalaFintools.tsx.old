@@ -1,0 +1,179 @@
+// import { useNavigate } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+// import Cookies from 'js-cookie';
+// import axios from 'axios';
+// import { GoogleOAuthProvider, GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+// import { GoogleSpreadsheet } from 'google-spreadsheet';
+// // import { getArgs, makeOAuth2Client } from '../Shared';
+// // import 'https://apis.google.com/js/api.js';
+// import { gapi } from 'gapi-script';
+// const config = {
+//   clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+//   redirectUrl: `${window.location.origin}`, // Use the same redirect URI you configured in the Google Cloud Console
+//   scopes: ['https://www.googleapis.com/auth/gmail.readonly'],
+//   serviceConfiguration: {
+//     authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+//     tokenEndpoint: 'https://accounts.google.com/o/oauth2/token',
+//     revocationEndpoint: 'https://accounts.google.com/o/oauth2/revoke',
+//   },
+// };
+
+// const EscalaFintools = () => {
+//   const [accessToken, setAccessToken] = useState('');
+//   const [labels, setLabels] = useState([]) as any[];
+//   const [error, setError] = useState('');
+
+//   const navigate = useNavigate();
+//   const [isLoggedin, setIsLoggedin] = useState(false);
+
+//   const handleLogin = async () => {
+//     try {
+//       // const authState = await authorize(config);
+//       // const { accessToken } = authState;
+
+//       // Store the access token in state
+//       setAccessToken(accessToken);
+
+//       // Use the access token to fetch Gmail labels
+//       const apiUrl = 'https://www.googleapis.com/gmail/v1/users/me/labels';
+//       const headers = {
+//         Authorization: `Bearer ${accessToken}`,
+//       };
+
+//       axios
+//         .get(apiUrl, { headers })
+//         .then((response: any) => {
+//           setLabels(response.data.labels);
+//         })
+//         .catch((error: any) => {
+//           setError('Error fetching labels: ' + error.message);
+//         });
+//     } catch (error: any) {
+//       setError('OAuth2 Error: ' + error.message);
+//     }
+//   };
+
+//   // Function to log out and revoke access
+//   const handleLogout = async () => {
+//     try {
+//       // await revoke(config, { tokenToRevoke: accessToken });
+//       setAccessToken('');
+//       setLabels([]);
+//     } catch (error: any) {
+//       setError('Error revoking access: ' + error.message);
+//     }
+//   };
+
+//   const handleClick = () => {
+//     const callbackUrl = `${window.location.origin}`;
+//     const googleClientId = '288000699238-qg64lc0ish8epjve4qdbar5cjkncuht3.apps.googleusercontent.com';
+//     const targetUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${encodeURIComponent(
+//       callbackUrl,
+//       // )}&response_type=token&client_id=${googleClientId}&scope=spreadsheets`;
+//     )}&response_type=token&client_id=${googleClientId}&scope=openid%20email%20profile`;
+//     window.location.href = targetUrl;
+//   };
+
+//   const responseMessage = async (response: any) => {
+//     console.log('LOGOU');
+//     console.log(response);
+//     //PEGAR O TOKEN
+//     //MEU: 1M4RyB67sc4aIeyj23-fW6eCLujHpH13Rr6dBK4Uzdlo
+//     //SHARE[TRUE]: 12aidPLGpKF1FdCnIbXh7rodm-Qk-ANmBga_T9IzS0yE
+//     const doc = new GoogleSpreadsheet('1M4RyB67sc4aIeyj23-fW6eCLujHpH13Rr6dBK4Uzdlo', {
+//       token: response,
+//     });
+//     await doc.loadInfo();
+//     console.log(doc);
+//   };
+//   const errorMessage = () => {
+//     console.log('ERRO');
+//   };
+
+//   useEffect(() => {
+//     console.log('-----');
+//     console.log(gapi);
+//     // console.log(gapi);
+//     // console.log(config);
+//     // const accessTokenRegex = /access_token=([^&]+)/;
+//     // const isMatch = window.location.href.match(accessTokenRegex);
+
+//     // if (isMatch) {
+//     //   const accessToken = isMatch[1];
+//     //   Cookies.set('access_token', accessToken);
+//     //   setIsLoggedin(true);
+//     // }
+//   }, []);
+
+//   useEffect(() => {
+//     if (isLoggedin) {
+//       navigate('/secure');
+//     }
+//   }, [isLoggedin, navigate]);
+//   return (
+//     <>
+//       <div className="row">
+//         <GoogleLogin
+//           onSuccess={(e) => responseMessage(e)}
+//           onError={errorMessage}
+//           // ux_mode="redirect"
+//           login_uri={window.location.origin}
+//         />
+//       </div>
+//       <div className="row">
+//         <h2>Gmail Label Viewer</h2>
+//         {accessToken ? (
+//           <template>
+//             <button title="Log Out" onClick={handleLogout}>
+//               Logout
+//             </button>
+//             <p>Access Token: {accessToken}</p>
+//             {labels.length > 0 && <p>Gmail Labels:</p>}
+//             <p>{labels.map((label: any) => label.name).join(', ')}</p>
+//           </template>
+//         ) : (
+//           <button onClick={handleLogin}>Log In with Google</button>
+//         )}
+//         {error !== '' && <p>{error}</p>}
+//       </div>
+//       <div className="row">
+//         <h1>Log in with Google</h1>
+//         <div className="btn-container">
+//           <button className="btn btn-primary" onClick={handleClick}>
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               viewBox="0 0 326667 333333"
+//               shapeRendering="geometricPrecision"
+//               textRendering="geometricPrecision"
+//               imageRendering="optimizeQuality"
+//               fillRule="evenodd"
+//               clipRule="evenodd"
+//               width={20}
+//               height={20}
+//             >
+//               <path
+//                 d="M326667 170370c0-13704-1112-23704-3518-34074H166667v61851h91851c-1851 15371-11851 38519-34074 54074l-311 2071 49476 38329 3428 342c31481-29074 49630-71852 49630-122593m0 0z"
+//                 fill="#4285f4"
+//               />
+//               <path
+//                 d="M166667 333333c44999 0 82776-14815 110370-40370l-52593-40742c-14074 9815-32963 16667-57777 16667-44074 0-81481-29073-94816-69258l-1954 166-51447 39815-673 1870c27407 54444 83704 91852 148890 91852z"
+//                 fill="#34a853"
+//               />
+//               <path
+//                 d="M71851 199630c-3518-10370-5555-21482-5555-32963 0-11482 2036-22593 5370-32963l-93-2209-52091-40455-1704 811C6482 114444 1 139814 1 166666s6482 52221 17777 74814l54074-41851m0 0z"
+//                 fill="#fbbc04"
+//               />
+//               <path
+//                 d="M166667 64444c31296 0 52406 13519 64444 24816l47037-45926C249260 16482 211666 1 166667 1 101481 1 45185 37408 17777 91852l53889 41853c13520-40185 50927-69260 95001-69260m0 0z"
+//                 fill="#ea4335"
+//               />
+//             </svg>
+//             Log in with Google
+//           </button>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default EscalaFintools;
