@@ -1,5 +1,6 @@
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ZombicideCompanion from './ZombicideCompanion';
+import EscalaV2Fintools from './EscalaV2Fintools';
 
 const OffcanvasPrincipal = ({
   children,
@@ -12,7 +13,10 @@ const OffcanvasPrincipal = ({
   toogle?: any;
   body: string;
 }) => {
-  const routes = [{ path: '', name: 'zombicide', module: <ZombicideCompanion /> }];
+  const routes = [
+    { path: '', name: 'zombicide', module: <ZombicideCompanion /> },
+    { path: '', name: 'escala', module: <EscalaV2Fintools fullContent={true} /> },
+  ];
 
   const getBody = () => {
     if (children) return children;
@@ -31,7 +35,7 @@ const OffcanvasPrincipal = ({
       }}
     >
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        <Offcanvas.Title>{routes.find((item: any) => item.name === body)?.name}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>{getBody()}</Offcanvas.Body>
     </Offcanvas>
