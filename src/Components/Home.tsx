@@ -8,6 +8,7 @@ import Actions from '../Modules/Actions';
 import ZombicideCompanion from '../Modules/ZombicideCompanion';
 import OffcanvasPrincipal from '../Modules/OffcanvasPrincipal';
 import EscalaV2Fintools from '../Modules/EscalaV2Fintools';
+import Gmail from '../Modules/Gmail';
 import { useEffect, useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
@@ -125,6 +126,12 @@ const Home = () => {
                 <Links />
               </Card.Body>
             </Card>
+            <Card>
+              <Card.Header style={{ textAlign: 'left' }}>Email</Card.Header>
+              <Card.Body>
+                <Gmail />
+              </Card.Body>
+            </Card>
           </div>
           <div className="col-xs-12 col-md-4">
             <Card>
@@ -138,6 +145,11 @@ const Home = () => {
               <Card.Body>
                 <EscalaV2Fintools />
               </Card.Body>
+              <Card.Footer>
+                <Button variant="primary" onClick={() => toogleCanva('escala')} size="sm" className="w-100">
+                  <i className="fa-solid fa-ellipsis"></i>
+                </Button>
+              </Card.Footer>
             </Card>
           </div>
         </div>

@@ -5,7 +5,11 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) => {
   const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+  const SCOPES =
+    'https://www.googleapis.com/auth/spreadsheets.readonly \
+    https://www.googleapis.com/auth/gmail.readonly';
+  // const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
+
   const [users, setUsers] = useState([{ name: '', selected: false, index: 0, squad: '' }]);
   const [data, setData] = useState([]) as any[];
   const [dataFull, setDataFull] = useState([]) as any[];
@@ -54,7 +58,7 @@ const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) =>
       if (resp.error !== undefined) {
         throw resp;
       }
-
+      localStorage.setItem('gAccessToken', resp.access_token);
       await getDados();
     };
 

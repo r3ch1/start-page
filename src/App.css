@@ -44,6 +44,10 @@
   text-align: left;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .weather p {
   margin-bottom: 10px;
 }
