@@ -2,6 +2,8 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import axios from 'axios';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 const accessToken = localStorage.getItem('gAccessToken');
 
@@ -29,6 +31,10 @@ const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) =>
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const getNextPresencialDay = () => {
+    return 'aaaaa';
   };
 
   const setChecked = (name: string) => {
@@ -84,7 +90,7 @@ const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) =>
       }
     });
     setData(presencialInWeek);
-  }, [users]);
+  }, [users, dataFull]);
 
   const Simple = () => {
     return (
@@ -116,6 +122,16 @@ const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) =>
                   </ToggleButton>
                 </>
               ))}
+        </div>
+        <div className="col-6">
+          <FloatingLabel controlId="floatingInput" label="Last Day at" className="mb-3 mt-3">
+            <Form.Control type="text" value={'aaaa'} disabled />
+          </FloatingLabel>
+        </div>
+        <div className="col-6">
+          <FloatingLabel controlId="floatingInput" label="Next Day at" className="mb-3 mt-3">
+            <Form.Control type="text" value={'aaaa'} disabled />
+          </FloatingLabel>
         </div>
         {[1, 2, 3, 4, 5].map((day: number) => {
           return (
