@@ -34,7 +34,22 @@ const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) =>
   };
 
   const getNextPresencialDay = () => {
-    return 'aaaaa';
+    const today = dataFull.find((item: any) => item[0] === moment().format('D/M'));
+    const indexToday = dataFull.indexOf(today);
+    const nextPresencial = dataFull.find(
+      (item: any, i: number) =>
+        i > indexToday &&
+        item[users.find((item: any) => item.selected)?.index || 0] === 'x' &&
+        moment(item[0], 'D/M').isSameOrAfter(moment()),
+    );
+    if (!nextPresencial) {
+      return '';
+    }
+    return `${moment(nextPresencial[0], 'D/M').format('DD/MM')} [${moment(nextPresencial[0], 'D/M').format('ddd')}]`;
+  };
+
+  const getPrevPresencialDay = () => {
+    return 'WORKING';
   };
 
   const setChecked = (name: string) => {
@@ -125,12 +140,12 @@ const EscalaV2Fintools = ({ fullContent = false }: { fullContent?: boolean }) =>
         </div>
         <div className="col-6">
           <FloatingLabel controlId="floatingInput" label="Last Day at" className="mb-3 mt-3">
-            <Form.Control type="text" value={'aaaa'} disabled />
+            <Form.Control type="text" value={getPrevPresencialDay()} disabled />
           </FloatingLabel>
         </div>
         <div className="col-6">
           <FloatingLabel controlId="floatingInput" label="Next Day at" className="mb-3 mt-3">
-            <Form.Control type="text" value={'aaaa'} disabled />
+            <Form.Control type="text" value={getNextPresencialDay()} disabled />
           </FloatingLabel>
         </div>
         {[1, 2, 3, 4, 5].map((day: number) => {
