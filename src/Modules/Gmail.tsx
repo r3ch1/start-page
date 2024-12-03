@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import { View, Text, Button, StyleSheet } from 'react-native';
 // import { authorize, refresh, revoke } from 'react-native-app-auth';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import moment from 'moment';
 import Badge from 'react-bootstrap/Badge';
 import Loading from '../Components/Loading';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const config = {
   clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
@@ -19,13 +20,13 @@ const config = {
     revocationEndpoint: 'https://accounts.google.com/o/oauth2/revoke',
   },
 };
-const accessToken = localStorage.getItem('gAccessToken');
 
 const Gmail = ({ fullContent = false }: { fullContent?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
   const [error, setError] = useState('');
   const [forceReload, setForceReload] = useState(1);
+  const { token }: any = useContext(AuthContext);
 
   const selectedAll = () => {
     setMessages(messages.map((item) => ({ ...item, selected: !item.selected })));
@@ -51,7 +52,7 @@ const Gmail = ({ fullContent = false }: { fullContent?: boolean }) => {
         setLoading(true);
         const apiUrl = 'https://www.googleapis.com/gmail/v1/users/me/messages?maxResults=5';
         const headers = {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
         };
         console.log(headers);
         const _messages: any[] = [];
@@ -73,7 +74,7 @@ const Gmail = ({ fullContent = false }: { fullContent?: boolean }) => {
       }
     };
     getMessages();
-  }, [forceReload]);
+  }, [forceReload, token]);
   return (
     <div className="row gmail">
       <div className="col-12">
@@ -95,7 +96,7 @@ const Gmail = ({ fullContent = false }: { fullContent?: boolean }) => {
       <Loading isLoading={loading} style={{ marginTop: '10px' }} />
       {messages.length !== 0 && (
         <>
-          <div className="col-12">
+          <div className="col-12 mt-3">
             <ListGroup as="ol">
               {messages.map((message: any, i: number) => {
                 const part = message.payload.parts.filter((part: any) => part.mimeType === 'text/html');

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { redirect } from 'react-router-dom';
+import axios from 'axios';
 
 const GLoginOptions = {
   client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
@@ -11,7 +12,12 @@ const GLoginOptions = {
 };
 const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 
+const accessToken = localStorage.getItem('gAccessToken');
+
 const Login = () => {
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+
   const [token, setToken] = useState('');
   const handleGoogleLogin = () => {
     const tokenClient = window.google.accounts.oauth2.initTokenClient(GLoginOptions);
@@ -37,6 +43,28 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log('TOKEN');
+    console.log(localStorage.getItem('gAccessToken'));
+    if (token) {
+      axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setToken(localStorage.getItem('gAccessToken') || '');
+    }
+  }, [token]);
+
+  useEffect(() => {
+    console.log('LOGADO');
     const redirectToHome = () => {
       return redirect('/home');
     };
@@ -44,6 +72,7 @@ const Login = () => {
     if (token !== '') {
       redirectToHome();
     }
+    console.log(token);
   }, [token]);
 
   useEffect(() => {
@@ -54,7 +83,10 @@ const Login = () => {
       });
     };
     console.log('CARREGA');
-    window.gapi.load('client', initializeGapiClient);
+    console.log(window.gapi);
+    if (window.gapi) {
+      window.gapi.load('client', initializeGapiClient);
+    }
   }, []);
   return (
     <div className="App container-fluid">
